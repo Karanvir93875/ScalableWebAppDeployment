@@ -1,0 +1,26 @@
+- name: Provision EKS Cluster
+  hosts: 8080
+  gather_facts: false
+  tasks:
+    - name: Create EKS cluster
+      community.aws.eks_cluster:
+        name: "myekscluster"
+        version: "1.21"
+        role_arn: "{{ eks_role_arn }}"
+        resources_vpc_config:
+          subnet_ids: "{{ subnet_ids }}"
+          security_group_ids: "{{ security_group_ids }}"
+        state: present
+      register: eks
+
+    - name: Create EKS Node Group
+      community.aws.eks_nodegroup:
+        cluster_name: "{{ eks.cluster.name }}"
+        name: "{{ node_group_name }}"
+        node_role_arn: "{{ node_role_arn }}"
+        scaling_config:
+          desired_size: 2
+          max_size: 3
+          min_size: 1
+        subnets: "{{ subnet_ids }}"
+        state: present

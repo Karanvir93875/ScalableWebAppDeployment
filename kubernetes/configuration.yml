@@ -1,0 +1,13 @@
+env:
+  - name: DATABASE_URL
+    value: "postgresql://<username>:<password>@<rds-endpoint>:<port>/dbname"
+  - name: mydatabase
+    valueFrom:
+      secretKeyRef:
+        name: postgres-credentials
+        key: username
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: postgres-credentials
+        key: password

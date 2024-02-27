@@ -1,0 +1,19 @@
+node 'kubernetes-node' {
+  # Ensure Docker is installed
+  class { 'docker': }
+
+  # Configure Kubernetes repository
+  yumrepo { 'kubernetes':
+    descr    => 'Kubernetes Repository',
+    baseurl  => 'https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64',
+    enabled  => 1,
+    gpgcheck => 1,
+    gpgkey   => 'https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg',
+  }
+
+  # Install kubectl
+  package { 'kubectl':
+    ensure => installed,
+    require => Yumrepo['kubernetes'],
+  }
+}

@@ -1,0 +1,10 @@
+node 'kubernetes-node' {
+  package { 'docker-ce':
+    ensure => installed,
+  }
+  service { 'docker':
+    ensure => running,
+    enable => true,
+  }
+  # Additional node configurations here
+}

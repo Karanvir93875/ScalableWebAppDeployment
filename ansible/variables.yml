@@ -1,0 +1,18 @@
+# AWS General Configuration
+region: us-east-1
+
+# EKS Cluster Configuration
+cluster_name: myekscluster
+eks_role_arn: arn:aws:iam::123456789012:role/EKS_Cluster_Role
+subnet_ids:
+  - subnet-abcdefgh
+  - subnet-ijklmnop
+security_group_ids:
+  - sg-12345678
+node_group_name: my-eks-node-group
+node_role_arn: arn:aws:iam::123456789012:role/EKS_Node_Role
+
+# RDS PostgreSQL Configuration
+db_instance_identifier: my-postgres-db
+master_username: postgresadmin
+master_user_password: securepassword123
